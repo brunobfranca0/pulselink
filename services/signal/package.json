@@ -1,0 +1,23 @@
+{
+  "name": "@pulselink/signal",
+  "version": "0.3.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "dependencies": {
+    "@pulselink/protocol": "*",
+    "bonjour-service": "^1.4.4",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}

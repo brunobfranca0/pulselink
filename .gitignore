@@ -1,0 +1,22 @@
+.tools/
+.data/
+node_modules/
+dist/
+*.sqlite
+*.sqlite-*
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+apps/desktop/dist/
+services/signal/dist/
+packages/protocol/dist/
+target/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Desktop packaging output
+apps/desktop/build/
+apps/desktop/release/

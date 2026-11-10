@@ -1,0 +1,36 @@
+{
+  "name": "pulselink",
+  "private": true,
+  "version": "0.3.0",
+  "description": "PulseLink — acesso remoto P2P de baixa latência para Windows, com integração Moonlight/Sunshine",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "start": "npm run build && npm run app -w @pulselink/desktop",
+    "app": "npm run build && npm run app -w @pulselink/desktop",
+    "dev": "concurrently -k -n signal,desktop -c green,cyan \"npm run dev -w @pulselink/signal\" \"npm run dev -w @pulselink/desktop\"",
+    "dev:desktop": "npm run dev -w @pulselink/desktop",
+    "dev:signal": "npm run dev -w @pulselink/signal",
+    "build": "npm run build -w @pulselink/protocol && npm run build -w @pulselink/signal && npm run build -w @pulselink/desktop",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run build -w @pulselink/protocol && npm run build -w @pulselink/signal && npm test -w @pulselink/signal && npm run test:cloud",
+    "dist": "npm run build -w @pulselink/protocol && npm run build -w @pulselink/signal && npm run dist -w @pulselink/desktop",
+    "cloud:migrate": "node scripts/cloud-migrate.mjs",
+    "test:cloud": "node --test supabase/test/cloud.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "esbuild@0.25.12": true
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "concurrently": "^9.2.5",
+    "pg": "^8.23.1"
+  }
+}

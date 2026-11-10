@@ -1,0 +1,79 @@
+{
+  "name": "@pulselink/desktop",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.mjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "app": "node launch.mjs",
+    "typecheck": "tsc -b --noEmit",
+    "bundle:signal": "node scripts/bundle-signal.mjs",
+    "dist": "npm run build && npm run bundle:signal && electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@pulselink/protocol": "*",
+    "@supabase/supabase-js": "^2.119.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "electron": "^41.2.1",
+    "electron-builder": "^26.18.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.3"
+  },
+  "description": "PulseLink — acesso remoto e streaming de jogos",
+  "author": "PulseLink",
+  "build": {
+    "appId": "app.pulselink.desktop",
+    "productName": "PulseLink",
+    "copyright": "PulseLink",
+    "electronVersion": "41.2.1",
+    "electronDist": "../../node_modules/electron/dist",
+    "directories": {
+      "output": "release",
+      "buildResources": "resources"
+    },
+    "files": [
+      "electron/**",
+      "dist/**",
+      "package.json",
+      "!**/node_modules/**"
+    ],
+    "extraResources": [
+      {
+        "from": "build/signal",
+        "to": "signal"
+      }
+    ],
+    "asar": true,
+    "npmRebuild": false,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "resources/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "PulseLink",
+      "uninstallDisplayName": "PulseLink",
+      "artifactName": "PulseLink-Setup-${version}.${ext}"
+    }
+  }
+}
